@@ -1,0 +1,28 @@
+﻿@model Cashier
+
+@{
+    ViewData["Title"] = "Create Cashier";
+}
+
+<div class="row">
+    <h4>Create a new Cashier</h4>
+    <div class="col-md-6 offset-3">
+        <form action="Create">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label class="form-label" asp-for="Card"></label>
+                <input class="form-control" type="number" asp-for="Card" />
+                <span class="text-danger" asp-validation-for="Card"></span>
+            </div>
+            <div class="form-group my-3">
+                <label class="form-label" asp-for="Cash"></label>
+                <input class="form-control" asp-for="Cash" />
+                <span class="text-danger" asp-validation-for="Cash"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label" asp-for="Day"></label>
+                <input class="form-control" asp-for="Day" type="date" asp-format="{0:dd/MM/yyyy}" innerText="@DateTime.Now" />
+            </div>
+        </form>
+    </div>
+</div>
