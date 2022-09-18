@@ -1,13 +1,13 @@
 ﻿@model CreateCashierVM
 
 @{
-    ViewData["Title"] = "Create Cashier";
+    ViewData["Title"] = "Edit Cashier";
 }
 
 <div class="row">
     <h4>Create a new Cashier</h4>
     <div class="col-md-6 offset-3">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly"></div>
             <div class="form-group">
                 <label class="form-label" asp-for="Card"></label>

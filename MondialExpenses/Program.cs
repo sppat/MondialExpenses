@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MondialExpenses.Data;
+using MondialExpenses.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+builder.Services.AddAutoMapper(typeof(MapperService).Assembly);
 
 var app = builder.Build();
 

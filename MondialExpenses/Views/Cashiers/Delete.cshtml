@@ -1,0 +1,28 @@
+﻿@model Cashier
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+    <h4>Delete Cashier</h4>
+    <div class="col-md-6 offset-3">
+        <div class="form-group">
+            <label class="form-label" asp-for="Card"></label>
+            <input class="form-control" type="number" asp-for="Card" readonly />
+        </div>
+        <div class="form-group my-3">
+            <label class="form-label" asp-for="Cash"></label>
+            <input class="form-control" type="number" asp-for="Cash" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-label" asp-for="Day"></label>
+            <input class="form-control" asp-for="Day" type="date" readonly />
+        </div>
+        <div class="form-group mt-3">
+            <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+            <a type="submit" class="btn btn-outline-danger float-end" asp-action="DeleteConfirmed" asp-route-id="@Model.Id">Delete</a>
+        </div>
+    </div>
+</div>
+
