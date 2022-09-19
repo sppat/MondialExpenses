@@ -36,7 +36,7 @@ namespace MondialExpenses.Controllers
             _context.Cashiers.Add(cashier);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Create", "Expenses", new { Id = cashier.Id });
         }
 
         public async Task<IActionResult> Details(int id)
