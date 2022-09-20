@@ -22,33 +22,69 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-4">
     <div class="col-md-6 offset-3">
-        <table class="table">
+        <table class="table" id="expenses">
             <thead>
                 <tr class="text-center">
-                    <th>Description</th>
-                    <th>Value</th>
+                    <th class="expenses-data-headers">Description</th>
+                    <th class="expenses-data-headers">Value</th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="text-center">
-                    <td><input type="text" asp-for="@Model.Expense.Description" /></td>
-                    <td><input type="number" asp-for="@Model.Expense.Value" /></td>
+            <tbody id="table-body">
+                <tr id="expenses-input-row" class="text-center">
+                    <td><input id="description" type="text" asp-for="@Model.Expense.Description" /></td>
+                    <td><input id="price" type="number" asp-for="@Model.Expense.Value" /></td>
+                    <td><button id="addBtn" class="btn btn-secondary">Add</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 mt-3">
+    <div class="col-md-4 offset-4 mt-3">
         <a class="btn btn-outline-secondary" asp-controller="Cashiers" asp-action="Index">Back</a>
+        <button id="create-expenses-btn" class="btn btn-outline-primary float-end">Create</button>
     </div>
 </div>
 
 
 @section Scripts {
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#addBtn').click(function() {
+                let expenseDescription = $('#description');
+                let expensePrice = $('#price');
 
+                if (!expenseDescription || !expensePrice) {
+                    alert('Make sure that you provided both, Description and Value!');
+                    return;
+                }
+
+                let markup = '<tr class="text-center expense-data"><td>' + expenseDescription.val() + '</td><td>' + expensePrice.val() + '</td><td></td></tr>';
+                $('#expenses-input-row').before(markup);
+
+                expenseDescription.val('');
+                expensePrice.val('');
+            });
+
+            $('#create-expenses-btn').click(function() {
+                let headers = [];
+                $('tr .expenses-data-headers').each(function(i) {
+                    headers.push($(this).text())
+                });
+
+                let data = [];
+                let rowData = {};
+                $('tr.expense-data td').each(function(i) {
+                   rowData[headers[i]] = $(this).text();
+                   if(i % 3 == 0) {
+                       data.push(rowData);
+                   }
+                });
+                console.log(data);
+            });
+        });
     </script>
 }
