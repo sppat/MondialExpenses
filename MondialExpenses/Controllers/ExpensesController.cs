@@ -32,5 +32,11 @@ namespace MondialExpenses.Controllers
 
             return View(createExpensesVM);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
     }
 }
