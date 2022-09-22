@@ -9,6 +9,7 @@ namespace MondialExpenses.Services
         public MapperService()
         {
             CreateMap<Cashier, CreateCashierVM>().ReverseMap();
+            CreateMap<Expense, ExpenseVM>().ReverseMap();
         }
     }
 }

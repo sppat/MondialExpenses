@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MondialExpenses.Data;
 using MondialExpenses.Models;
@@ -9,10 +10,12 @@ namespace MondialExpenses.Controllers
     public class ExpensesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ExpensesController(ApplicationDbContext context)
+        public ExpensesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index() => View(await _context.Expenses.ToListAsync());
@@ -34,9 +37,20 @@ namespace MondialExpenses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(List<ExpenseVM> expensesVM)
         {
-            return View();
+            if(!expensesVM.Any())
+            {
+                return RedirectToAction("Index", "Cashiers");
+            }
+
+            var expenses = _mapper.Map<List<Expense>>(expensesVM);
+            
+            _context.Expenses.AddRange(expenses);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Cashiers");
         }
     }
 }
