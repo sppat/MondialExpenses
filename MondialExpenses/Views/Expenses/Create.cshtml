@@ -1,4 +1,4 @@
-﻿@model CreateExpensesVM
+﻿@model GetCreateExpensesVM
 
 @{
     ViewData["Title"] = "Create Expenses";
@@ -102,13 +102,19 @@
                 });
 
                 let token = $('input[name="__RequestVerificationToken"]').val();
+                let createExpensesVM = {
+                    'CashierId': @Model.Cashier.Id,
+                    'ExpensesVM': data
+                }
+
+                console.log(createExpensesVM);
 
                 $.ajax({
                     type: 'POST',
                     url: '/expenses/create',
                     data: {
                         __RequestVerificationToken: token,
-                        expensesVM: data,
+                        postCreateExpensesVM: createExpensesVM,
                     },
                     success: function(response) {
                         window.location.href = '/';

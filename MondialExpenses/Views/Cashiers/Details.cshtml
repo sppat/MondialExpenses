@@ -7,22 +7,53 @@
 <div class="row">
     <h4>Cashier for @Model.Day.ToString("dd/MM/yyyy")</h4>
     <div class="col-md-6 offset-3">
-            <div asp-validation-summary="ModelOnly"></div>
-            <div class="form-group">
-                <label class="form-label" asp-for="Card"></label>
-                <input class="form-control" type="number" asp-for="Card" readonly />
-            </div>
-            <div class="form-group my-3">
-                <label class="form-label" asp-for="Cash"></label>
-                <input class="form-control" type="number" asp-for="Cash" readonly />
-            </div>
-            <div class="form-group">
-                <label class="form-label" asp-for="Day"></label>
-                <input class="form-control" asp-for="Day" type="date" readonly />
-            </div>
-            <div class="form-group mt-3">
-                <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
-            </div>
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label class="form-label" asp-for="Card"></label>
+            <input class="form-control" type="number" asp-for="Card" readonly />
+        </div>
+        <div class="form-group my-3">
+            <label class="form-label" asp-for="Cash"></label>
+            <input class="form-control" type="number" asp-for="Cash" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-label" asp-for="Day"></label>
+            <input class="form-control" asp-for="Day" type="date" readonly />
+        </div>
+        <div class="form-group my-3">
+            <label class="form-label" asp-for="Sum"></label>
+            <input class="form-control" asp-for="Sum" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-label" asp-for="Total"></label>
+            <input class="form-control" asp-for="Total" readonly />
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6 offset-3">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="expenses-data-headers">Description</th>
+                        <th class="expenses-data-headers">Value</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    @foreach (var item in Model.Expenses)
+                    {
+                        <tr class="text-center">
+                            <td>@item.Description</td>
+                            <td>@string.Format("{0:c}", item.Value)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+        </div>
     </div>
 </div>
 

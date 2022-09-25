@@ -19,6 +19,8 @@
                         <th>@Html.DisplayNameFor(m => m.Day)</th>
                         <th>@Html.DisplayNameFor(m => m.Cash)</th>
                         <th>@Html.DisplayNameFor(m => m.Card)</th>
+                        <th>@Html.DisplayNameFor(m => m.Sum)</th>
+                        <th>@Html.DisplayNameFor(m => m.Total)</th>
                         <th>Utils</th>
                     </tr>
                 </thead>
@@ -30,10 +32,13 @@
                             <td>@item.Day.ToString("dd/MM/yyyy")</td>
                             <td>@item.Cash</td>
                             <td>@item.Card</td>
+                            <td>@item.Sum</td>
+                            <td>@item.Total</td>
                             <td>
                                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> | 
                                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | 
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                                <a asp-action="Export" asp-route-id="@item.Id">Export</a>
                             </td>
                         </tr>
                     }

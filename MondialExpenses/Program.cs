@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 builder.Services.AddAutoMapper(typeof(MapperService).Assembly);
+builder.Services.AddScoped(typeof(CashierCalculatingService));
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MondialExpenses.Data;
 using MondialExpenses.Models;
+using MondialExpenses.Services;
 using MondialExpenses.ViewModels;
 
 namespace MondialExpenses.Controllers
@@ -41,7 +42,7 @@ namespace MondialExpenses.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var cashier = await _context.Cashiers.FindAsync(id);
+            var cashier = await _context.Cashiers.Include(c => c.Expenses).FirstOrDefaultAsync(c => c.Id == id);
             if (cashier == null)
             {
                 return View("NotFound");
@@ -52,7 +53,7 @@ namespace MondialExpenses.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var cashier = await _context.Cashiers.FindAsync(id);
+            var cashier = await _context.Cashiers.Include(c => c.Expenses).FirstOrDefaultAsync(c => c.Id == id);
             if (cashier == null)
             {
                 return View("NotFound");

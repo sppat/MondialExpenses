@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MondialExpenses.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MondialExpenses.ViewModels
 {
@@ -13,5 +14,7 @@ namespace MondialExpenses.ViewModels
 
         [Required(ErrorMessage = "Day is required.")]
         public DateTime? Day { get; set; }
+
+        public List<Expense> Expenses { get; set; }
     }
 }

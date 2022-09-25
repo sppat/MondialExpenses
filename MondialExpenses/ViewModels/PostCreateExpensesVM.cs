@@ -1,7 +1,10 @@
-﻿namespace MondialExpenses.ViewModels
+﻿using MondialExpenses.Models;
+
+namespace MondialExpenses.ViewModels
 {
     public class PostCreateExpensesVM
     {
-        public List<ExpenseVM> expenseVMs { get; set; }
+        public int CashierId { get; set; }
+        public List<ExpenseVM> ExpensesVM { get; set; }
     }
 }
