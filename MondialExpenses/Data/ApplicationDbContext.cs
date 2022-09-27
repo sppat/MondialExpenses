@@ -23,6 +23,8 @@ namespace MondialExpenses.Data
                 .WithOne(e => e.Cashier)
                 .HasForeignKey(e => e.CashierId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

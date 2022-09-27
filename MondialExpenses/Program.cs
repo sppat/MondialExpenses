@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MondialExpenses.Data;
 using MondialExpenses.Services;
@@ -12,7 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddAutoMapper(typeof(MapperService).Assembly);
+
 builder.Services.AddScoped(typeof(CashierCalculatingService));
 
 var app = builder.Build();
