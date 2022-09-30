@@ -1,0 +1,88 @@
+﻿@model EditRoleVM
+
+@{
+    ViewData["Title"] = "Edit Role";
+}
+
+<div class="row">
+    <h4>Edit Role: @Model.Role.Name</h4>
+    <div class="col-md-6 offset-3 mt-3">
+        <form asp-action="Edit">
+            <input type="hidden" name="id" value="@Model.Role.Id" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <h4 class="text-center">Members</h4>
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>User</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (@Model.Members.Count() == 0)
+                    {
+                        <tr>
+                            <td class="text-center" colspan="3">No members</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (IdentityUser user in Model.Members)
+                        {
+                            <tr class="text-center">
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit" asp-route-userId="@user.Id">Chage</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="col-md-6 offset-3 mt-3">
+        <form asp-action="Edit">
+            <input type="hidden" name="id" value="@Model.Role.Id" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <h4 class="text-center">Non Members</h4>
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>User</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (@Model.NonMembers.Count() == 0)
+                    {
+                        <tr>
+                            <td class="text-center" colspan="3">No members</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (IdentityUser user in Model.NonMembers)
+                        {
+                            <tr class="text-center">
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit" asp-route-userId="@user.Id">Chage</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1">
+        <a class="btn btn-primary" asp-action="Index">Back</a>
+    </div>
+</div>
