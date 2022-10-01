@@ -1,25 +1,71 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MondialExpenses.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MondialExpenses.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IMapper _mapper;
 
-        public AccountController(UserManager<IdentityUser> userManager, IMapper _mapper)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMapper mapper)
         {
             _userManager = userManager;
-            this._mapper = _mapper;
+            _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         public IActionResult Users() => View(_userManager.Users);
 
+        [AllowAnonymous]
+        public IActionResult Login() => View(new LoginVM());
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(loginVM.UserName, loginVM.Password, false, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Cashiers");
+                }
+                ModelState.AddModelError("", "Invalid User Name or Password");
+            }
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied() => View();
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(Login));
+        }
+
         public IActionResult Create() => View(new RegisterVM());
+
+        public IActionResult CookieDetails()
+        {
+            
+            ViewBag.Cookie = Request.Cookies[".AspNetCore.Identity.Application"];
+            
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Cookie Details";
+}
+
+<div class="row">
+    <h4>Cookie Details</h4>
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cookie</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Cookie == null)
+                {
+                    <tr>
+                        <td>No Identity Cookie</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@ViewBag.Cookie</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

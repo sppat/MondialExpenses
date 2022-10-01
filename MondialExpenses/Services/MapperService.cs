@@ -12,6 +12,7 @@ namespace MondialExpenses.Services
             CreateMap<Cashier, CreateCashierVM>().ReverseMap();
             CreateMap<Expense, ExpenseVM>().ReverseMap();
             CreateMap<IdentityUser, EditUserVM>().ReverseMap();
+            CreateMap<IdentityUser, LoginVM>().ReverseMap();
         }
     }
 }

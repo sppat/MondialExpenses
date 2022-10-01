@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MondialExpenses.Data;
@@ -9,6 +10,7 @@ using MondialExpenses.ViewModels;
 
 namespace MondialExpenses.Controllers
 {
+    [Authorize]
     public class CashiersController : Controller
     {
         private readonly ApplicationDbContext _context;
